@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的超级马里奥式游戏</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #000;
+        }
+        #game-container {
+            /* 根据你的游戏分辨率调整 */
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container"></div>
+    <!-- 引入编译/打包后的主JS文件 (稍后配置) -->
+    <!-- <script src="dist/main.bundle.js"></script> -->
+    <!--本地主JS文件-->
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
