@@ -29,7 +29,8 @@ export default class PreloadScene extends Phaser.Scene {
       // 1. 图像
       this.load.setBaseURL(window.location.href);
       this.load.image('sky', 'assets/images/sky.svg');
-      this.load.image('ground', 'assets/images/platform.png');
+      this.load.image('ground', 'assets/images/platform.svg'); // 宽平台
+      this.load.image('platform', 'assets/images/platform-narrow.svg'); // 窄平台
       this.load.image('star', 'assets/images/star.png');
       this.load.image('bomb', 'assets/images/bomb.png');
       this.load.spritesheet('dude', 'assets/images/dude.png', {

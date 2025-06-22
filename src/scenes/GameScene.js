@@ -17,10 +17,12 @@ export default class GameScene extends Phaser.Scene {
   
       // 2. 创建平台 (地面和空中)
       const platforms = this.physics.add.staticGroup();
-      platforms.create(400, 568, 'ground').setScale(2).refreshBody(); // 底部地面
-      platforms.create(600, 400, 'ground');
-      platforms.create(50, 250, 'ground');
-      platforms.create(750, 220, 'ground');
+      // 底部主平台使用宽平台
+      platforms.create(400, 568, 'ground').setScale(3, 1).refreshBody();
+      // 空中平台使用窄平台
+      platforms.create(700, 400, 'platform');
+      platforms.create(100, 300, 'platform');
+      platforms.create(500, 200, 'platform');
   
       // 3. 创建玩家 (马里奥角色)
       this.player = this.physics.add.sprite(100, 450, 'dude');
@@ -56,9 +58,18 @@ export default class GameScene extends Phaser.Scene {
         child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8)); // 随机弹跳
       });
   
-      // 6. 创建炸弹组 (敌人/障碍物) - 稍后添加逻辑
-      this.bombs = this.physics.add.group();
-  
+      // 6. 创建炸弹组 (敌人/障碍物)
+      this.bombs = this.physics.add.group({
+        bounceY: 1, // 垂直弹跳系数
+        bounceX: 1, // 水平弹跳系数
+        collideWorldBounds: true // 防止掉出世界边界
+      });
+        // 生成一个炸弹
+        const x = (this.player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+        const bomb = this.bombs.create(x, 150, 'bomb');
+        bomb.setDisplaySize(67, 40); // 设置炸弹显示大小为67x40像素
+        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20); // 设置适中的移动速度
+        bomb.setAngularVelocity(360); // 添加旋转效果
       // 7. 创建分数文本
       this.scoreText = this.add.text(16, 16, 'Score: 0', {
         fontSize: '32px',
@@ -100,6 +111,13 @@ export default class GameScene extends Phaser.Scene {
         this.player.setVelocityY(-330); // 向上速度
         this.sound.play('jumpSound'); // 播放跳跃音效
       }
+
+      // 确保炸弹不会掉到底部平台下方
+      this.bombs.children.iterate(bomb => {
+        if (bomb && bomb.y >= 568) {
+          bomb.setVelocityY(-300); // 如果炸弹触底，给一个向上的速度
+        }
+      });
     }
   
     collectStar(player, star) {
@@ -115,11 +133,7 @@ export default class GameScene extends Phaser.Scene {
           child.enableBody(true, child.x, 0, true, true);
         });
   
-        // 生成一个炸弹 (简单示例)
-        const bomb = this.bombs.create(Phaser.Math.Between(50, 750), 16, 'bomb');
-        bomb.setBounce(1);
-        bomb.setCollideWorldBounds(true);
-        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+  
       }
     }
   
