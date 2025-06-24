@@ -32,15 +32,21 @@ export default class PreloadScene extends Phaser.Scene {
       this.load.image('ground', 'assets/images/platform.svg'); // 宽平台
       this.load.image('platform', 'assets/images/platform-narrow.svg'); // 窄平台
       this.load.image('star', 'assets/images/star.png');
-      this.load.image('bomb', 'assets/images/bomb.png');
+      this.load.image('bomb', '/assets/images/bomb.png');
+      this.load.image('health', 'assets/images/health.png');
       this.load.spritesheet('dude', 'assets/images/dude.png', {
         frameWidth: 32, frameHeight: 48
       }); // 玩家精灵表
-  
+      this.load.spritesheet('bullet', 'assets/images/bullet.png', {
+        frameWidth: 48, frameHeight: 48
+      }); // 子弹精灵表
+
       // 2. 音频
       this.load.audio('jumpSound', 'assets/audio/jump.wav');
       this.load.audio('collectSound', 'assets/audio/collect.wav');
       this.load.audio('hitSound', 'assets/audio/hit.wav');
+      this.load.audio('shotSound', 'assets/audio/shot.wav');
+      this.load.audio('enemyHitSound', 'assets/audio/enemyHit.wav');
   
       // 3. 瓦片地图 (Tiled JSON 和 对应图集)
       // this.load.tilemapTiledJSON('level1', 'assets/tilemaps/level1.json');

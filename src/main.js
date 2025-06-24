@@ -12,8 +12,8 @@ const config = {
   physics: {
     default: 'arcade', // 使用简单高效的 Arcade Physics
     arcade: {
-      gravity: { y: 300 }, // 重力 (Y轴正方向向下)
-      debug: false          // 开启调试显示碰撞框 (开发时设为true方便调试)
+      gravity: { y: 1200 }, // 重力 (Y轴正方向向下)
+      debug: true          // 开启调试显示碰撞框 (开发时设为true方便调试)
     }
   },
   scene: [BootScene, PreloadScene, GameScene] // 场景执行顺序
